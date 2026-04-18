@@ -106,7 +106,7 @@ export function resolveChatModelState(params: {
   return {
     modelId: resolved.modelId,
     apiKeyId: resolved.apiKeyId,
-    modelSource: resolved.source === "fallback" ? null : resolved.source,
+    modelSource: resolved.source,
     provider:
       params.chatModels && params.chatModels.length > 0
         ? getProviderForModelId({
@@ -132,6 +132,10 @@ export function resolvePreferredModelForProvider(params: {
     modelId: bestModel?.id ?? providerModels[0].id,
     provider: params.provider,
   };
+}
+
+export function resolveConversationModelSource(): null {
+  return null;
 }
 
 export function buildCreateConversationInput(params: {

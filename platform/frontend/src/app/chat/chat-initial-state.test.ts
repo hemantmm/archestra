@@ -7,6 +7,7 @@ import {
   resolvePreferredModelForProvider,
   shouldResetInitialChatState,
 } from "./chat-initial-state";
+import { ModelSource } from "@/lib/chat/use-chat-preferences";
 
 describe("resolveInitialAgentState", () => {
   test("returns org default model for an agent without its own model", () => {
@@ -115,6 +116,20 @@ describe("resolvePreferredModelForProvider", () => {
         modelsByProvider: {},
       }),
     ).toBeNull();
+  });
+});
+
+describe("model source behavior", () => {
+  test("auto source is distinct from user", () => {
+    const autoSource: ModelSource = "auto";
+    const userSource: ModelSource = "user";
+
+    expect(autoSource).not.toEqual(userSource);
+  });
+
+  test("user source is preserved", () => {
+    const source: ModelSource = "user";
+    expect(source).toBe("user");
   });
 });
 

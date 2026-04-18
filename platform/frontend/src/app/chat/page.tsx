@@ -114,7 +114,6 @@ import {
 import {
   clearModelOverride,
   getSavedAgent,
-  getSavedModelOverride,
   type ModelSource,
   saveAgent,
   saveModelOverride,
@@ -422,11 +421,11 @@ export function ChatPageContent({
         provider: newProvider,
         modelsByProvider,
       });
-      if (preferredModel) {
-        setInitialModel(preferredModel.modelId);
-        setInitialModelSource("user");
-        saveModelOverride(preferredModel.modelId);
-      }
+      if (!preferredModel) return;
+      
+      setInitialModel(preferredModel.modelId);
+      setInitialModelSource("auto");
+      clearModelOverride();
     },
     [modelsByProvider],
   );
@@ -613,39 +612,8 @@ export function ChatPageContent({
     return model?.provider;
   }, [conversation?.selectedModel, chatModels]);
 
-  // Derive model source for existing conversations by comparing with agent/org defaults.
-  // Check localStorage override first — if the user explicitly saved this model as their
-  // override, it's a user override even if it matches the agent or org default.
-  const conversationModelSource = useMemo((): ModelSource | null => {
-    if (!conversation?.selectedModel) return null;
-
-    const userOverride = getSavedModelOverride();
-    if (userOverride && conversation.selectedModel === userOverride) {
-      return "user";
-    }
-
-    const agentId = conversation?.agentId;
-    if (agentId) {
-      const agent = internalAgents.find((a) => a.id === agentId) as
-        | (Record<string, unknown> & { llmModel?: string })
-        | undefined;
-      if (agent?.llmModel && conversation.selectedModel === agent.llmModel) {
-        return "agent";
-      }
-    }
-    if (
-      organization?.defaultLlmModel &&
-      conversation.selectedModel === organization.defaultLlmModel
-    ) {
-      return "organization";
-    }
-    return null;
-  }, [
-    conversation?.selectedModel,
-    conversation?.agentId,
-    internalAgents,
-    organization?.defaultLlmModel,
-  ]);
+  // Source inference removed — requires backend support to be accurate
+  const conversationModelSource = null;
 
   // Get selected model's context length for the context indicator
   const selectedModelContextLength = useMemo((): number | null => {
