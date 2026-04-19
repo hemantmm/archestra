@@ -138,7 +138,12 @@ interface ResolveInitialModelParams extends ChatContext {
   agent: AgentInfo | null;
 }
 
-export type ModelSource = "agent" | "organization" | "user" | "auto" | "fallback";
+export type ModelSource =
+  | "agent"
+  | "organization"
+  | "user"
+  | "auto"
+  | "fallback";
 
 interface ResolvedModel {
   modelId: string;

@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+import type { ModelSource } from "@/lib/chat/use-chat-preferences";
 import {
   buildCreateConversationInput,
   getProviderForModelId,
@@ -7,7 +8,6 @@ import {
   resolvePreferredModelForProvider,
   shouldResetInitialChatState,
 } from "./chat-initial-state";
-import { ModelSource } from "@/lib/chat/use-chat-preferences";
 
 describe("resolveInitialAgentState", () => {
   test("returns org default model for an agent without its own model", () => {

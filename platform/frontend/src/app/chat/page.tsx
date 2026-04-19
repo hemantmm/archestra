@@ -432,7 +432,6 @@ export function ChatPageContent({
         modelsByProvider,
       });
       if (!preferredModel) return;
-      
       setInitialModel(preferredModel.modelId);
       setInitialModelSource("auto");
       clearModelOverride();
