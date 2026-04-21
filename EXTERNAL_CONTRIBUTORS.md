@@ -75,3 +75,11 @@ To unblock real contributors without re-opening the floodgates, sign in via GitH
 - @Labreo
 - @vortexdispatch01-spec
 - @ayushgoyal-lsn
+- @Lesedi37
+- @vincemtnz
+- @vmatiyko
+- @BuildWithAbid
+- @CLAassistant
+- @gushul
+- @HarshadaGawas05
+- @eugene-bagaev
